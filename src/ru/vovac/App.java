@@ -1,5 +1,6 @@
 package ru.vovac;
 
+import ru.vovac.forms.AuthForm;
 import ru.vovac.forms.ProductsTableForm;
 
 import javax.swing.*;
@@ -9,6 +10,16 @@ import java.sql.SQLException;
 
 public class App {
 
+    public enum UserRole {
+        GUEST,
+        CUSTOMER,
+        SELLER,
+        ADMIN,
+        NONE
+    }
+
+    public static UserRole AUTH_ROLE;
+
     public static void main(String[] args) {
 
         try {
@@ -16,8 +27,9 @@ public class App {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        new ProductsTableForm();
+        AUTH_ROLE = UserRole.NONE;
+//        new ProductsTableForm();
+        new AuthForm();
     }
 
     public static Connection getConnection() throws SQLException {

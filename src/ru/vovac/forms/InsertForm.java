@@ -25,6 +25,7 @@ public class InsertForm extends BaseForm {
         setContentPane(mainPanel);
         initButtons();
         setVisible(true);
+
     }
 
     private void initButtons() {

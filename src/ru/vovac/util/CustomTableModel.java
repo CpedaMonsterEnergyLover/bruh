@@ -1,33 +1,33 @@
 package ru.vovac.util;
 
+import ru.vova.c.NewCalculation;
+
 import javax.swing.table.AbstractTableModel;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ObjectTableModel<T> extends AbstractTableModel {
+public class CustomTableModel<T> extends AbstractTableModel {
 
-    private List<T> objects;
     private Class<T> tClass;
+    private List<T> objects;
     private String[] columnNames;
 
-
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    public void setColumnNames(String[] columnNames) {
-        this.columnNames = columnNames;
-    }
-
-    public ObjectTableModel(List<T> objects, Class<T> tClass, String[] columnNames) {
-        this.objects = objects;
+    public CustomTableModel(Class<T> tClass, List<T> objects, String[] columnNames) {
         this.tClass = tClass;
+        this.objects = objects;
         this.columnNames = columnNames;
+
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         return tClass.getDeclaredFields()[columnIndex].getType();
+    }
+
+    @Override
+    public String getColumnName(int column) {
+        return columnNames[column];
     }
 
     @Override
@@ -45,31 +45,10 @@ public class ObjectTableModel<T> extends AbstractTableModel {
         try {
             Field field = tClass.getDeclaredFields()[columnIndex];
             field.setAccessible(true);
-            return field.get(objects.get(rowIndex));
+            return field.get(objects.get(columnIndex));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
             return null;
         }
-    }
-
-    @Override
-    public String getColumnName(int columnIndex) {
-        return columnNames[columnIndex];
-    }
-
-    public List<T> getObjects() {
-        return objects;
-    }
-
-    public void setObjects(List<T> objects) {
-        this.objects = objects;
-    }
-
-    public Class<T> gettClass() {
-        return tClass;
-    }
-
-    public void settClass(Class<T> tClass) {
-        this.tClass = tClass;
     }
 }

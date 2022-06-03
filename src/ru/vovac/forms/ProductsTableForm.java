@@ -35,10 +35,10 @@ public class ProductsTableForm extends BaseForm {
     private void initTable(){
         try {
             mainTable.setRowHeight(50);
-            tableModel = new ObjectTableModel<ProductEntity>(
+            tableModel = new ObjectTableModel<>(
                     ProductEntityManager.selectAll(),
                     ProductEntity.class,
-                    new String[] {"ID", "Наименование", "Тип", "Артикль", "Описание", "Путь до изображения", "Кол-во работников", "Номер мастерской", "Мин. стоимость", "Изображение"}
+                    new String[]{"ID", "Наименование", "Тип", "Артикль", "Описание", "Путь до изображения", "Кол-во работников", "Номер мастерской", "Мин. стоимость", "Изображение"}
             );
             mainTable.setModel(tableModel);
             mainTable.addMouseListener(new MouseAdapter() {
